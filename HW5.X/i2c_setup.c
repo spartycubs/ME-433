@@ -2,8 +2,28 @@
 // The functions must be called in the correct order as per the I2C protocol
 // Change I2C1 to the I2C channel you are using
 // I2C pins need pull-up resistors, 2k-10k
-
 #include "i2c_setup.h"
+
+#define SLAVE_ADDRESS 0x32
+
+void i2c_master_write(char reg_address, char byte) {
+    i2c_master_start();
+    i2c_master_send(SLAVE_ADDRESS << 1 | 0);
+    i2c_master_send(reg_address);
+    i2c_master_send(byte);
+    i2c_master_stop();
+}
+
+char i2c_master_read(char reg_address) {
+    i2c_master_start();
+    i2c_master_send(SLAVE_ADDRESS << 1 | 0);
+    i2c_master_send(reg_address);
+    i2c_master_restart();
+    i2c_master_send(SLAVE_ADDRESS << 1 | 1);
+    char r = i2c_master_rcv();
+    i2c_master_ack();
+    i2c_master_stop();
+}
 
 void i2c_master_setup(void) {
   I2C2BRG = 233;            // I2CBRG = [[1/(2*100000) - 104*10^-9]*48000000] - 2 
