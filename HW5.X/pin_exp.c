@@ -13,7 +13,7 @@ void init_expander() {
 }
 
 void set_expander(char pin, char level) {
-    char write = level << pin;
+    unsigned char write = level << pin;
     i2c_master_write(GPIO,write);
 }
 

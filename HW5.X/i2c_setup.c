@@ -24,10 +24,10 @@ char i2c_master_read(char reg_address) {
     i2c_master_restart();                     // make the restart bit
     i2c_master_send(SLAVE_ADDRESS << 1 | 1);  // write the address, shifted left by 1
                                               //    or'd with a 1 because we're reading
-    char r = i2c_master_recv();               // save the value returned
-    i2c_master_ack(1);                         // make the ack so the slave knows we received
-    i2c_master_stop(); 
-    return r;// make the stop bit
+    unsigned char r = i2c_master_recv();      // save the value returned
+    i2c_master_ack(1);                        // make the ack so the slave knows we received
+    i2c_master_stop();                        // make the stop bit
+    return r;
 }
 
 void i2c_master_setup(void) {
