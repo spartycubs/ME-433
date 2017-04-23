@@ -28,6 +28,7 @@ int main(void) {
     LCD_init();
     
     int i = 0, j, x_pos = 28, y_pos = 32;
+    float time = 0;
 
     LCD_clearScreen(BLACK);
     bar_init(14, 62, 101);
@@ -39,10 +40,10 @@ int main(void) {
             for (j=0;j<5;j++) {
                 LCD_drawPixel(14+counter,63+j,WHITE);  // Draw progress step on bar
             }
-            while (message[i]) {
-                LCD_writeLetter(x_pos + 5*i,y_pos,message[i]);  // Write string to screen
-                i++;
-            }
+            LCD_writeString(x_pos,y_pos,message);
+            time =(float) 24000000.0/_CP0_GET_COUNT();
+            sprintf(message,"Frames: %5.3f",time);
+            LCD_writeString(14,75,message);
             i = 0;
             if (counter < 100) {counter++;}
             else {
@@ -69,6 +70,14 @@ void LCD_writeLetter (int x, int y, char letter) {
                 LCD_drawPixel(x+i,y+j,BLACK);
             }
         }
+    }
+}
+
+LCD_writeString (int x, int y, char* array) {
+    int i = 0;
+    while (array[i]) {
+        LCD_writeLetter(x + 5*i,y,array[i]);  // Write string to screen
+        i++;
     }
 }
 
