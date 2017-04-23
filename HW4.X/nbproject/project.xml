@@ -1,37 +1,17 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://www.netbeans.org/ns/project/1">
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>HW4</name>
-            <creation-uuid>5ede2069-a958-49bb-8eb3-141d70743711</creation-uuid>
+            <creation-uuid>f72ce55e-f41f-47c2-803c-f322fee8f5c7</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
             <cpp-extensions/>
-            <header-extensions>h</header-extensions>
+            <header-extensions/>
             <asminc-extensions/>
-            <sourceEncoding>UTF-8</sourceEncoding>
+            <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
         </data>
     </configuration>
 </project>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://www.netbeans.org/ns/project/1">
-    <type>com.microchip.mplab.nbide.embedded.makeproject</type>
-    <configuration>
-        <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>HW4</name>
-            <creation-uuid>5ede2069-a958-49bb-8eb3-141d70743711</creation-uuid>
-            <make-project-type>0</make-project-type>
-            <c-extensions>c</c-extensions>
-            <cpp-extensions/>
-            <header-extensions>h</header-extensions>
-            <asminc-extensions/>
-            <sourceEncoding>UTF-8</sourceEncoding>
-            <make-dep-projects/>
-        </data>
-    </configuration>
-</project>
->>>>>>> origin/master

@@ -1,12 +1,11 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?> 
 <project>                                  
   <executable name="dist/default/production/HW4.X.production.elf">                 
     <memory name="program">                 
       <units>bytes</units>                 
       <length>132240</length>                 
-      <used>5012</used>                     
-      <free>127228</free>                     
+      <used>5244</used>                     
+      <free>126996</free>                     
     </memory>                              
     <memory name="data">              
       <units>bytes</units>                 
@@ -16,22 +15,3 @@
     </memory>                              
   </executable>                            
 </project>                                 
-=======
-<?xml version="1.0" encoding="UTF-8"?> 
-<project>                                  
-  <executable name="dist/default/production/HW4.X.production.elf">                 
-    <memory name="program">                 
-      <units>bytes</units>                 
-      <length>132240</length>                 
-      <used>5044</used>                     
-      <free>127196</free>                     
-    </memory>                              
-    <memory name="data">              
-      <units>bytes</units>                 
-      <length>32768</length>                 
-      <used>1644</used>                     
-      <free>31124</free>                     
-    </memory>                              
-  </executable>                            
-</project>                                 
->>>>>>> origin/master
