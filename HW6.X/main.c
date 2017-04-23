@@ -5,7 +5,7 @@
 #include "ILI9163C.h"
 
 void LCD_writeLetter(int, int, char);
-void bar_init();
+void bar_init(int, int, int);
 
 int main(void) {
     char message[25];
@@ -27,23 +27,30 @@ int main(void) {
     SPI1_init();
     LCD_init();
     
-    int i = 0, j, num, x_pos = 28, y_pos = 32;
+    int i = 0, j, x_pos = 28, y_pos = 32;
 
     LCD_clearScreen(BLACK);
-    bar_init();
+    bar_init(14, 62, 101);
     _CP0_SET_COUNT(0);
-    for (num = 0;num < 101;num++) {
+    while (1) {
         if (_CP0_GET_COUNT() >= 4800000) {        // Cycle 5x per second
-            _CP0_SET_COUNT(0);
-            sprintf(message, "Hello World %d!",num);
+            static int counter = 0;
+            sprintf(message, "Hello World %d!",counter);
             for (j=0;j<5;j++) {
-                LCD_drawPixel(14+num,63+j,WHITE);  // Draw progress step on bar
+                LCD_drawPixel(14+counter,63+j,WHITE);  // Draw progress step on bar
             }
             while (message[i]) {
-                LCD_writeLetter(x_pos,y_pos,message[i]);  // Write string to screen
+                LCD_writeLetter(x_pos + 5*i,y_pos,message[i]);  // Write string to screen
                 i++;
-                x_pos += 5;
             }
+            i = 0;
+            if (counter < 100) {counter++;}
+            else {
+                counter = 0;
+                LCD_clearScreen(BLACK);
+                bar_init(14, 62, 101);
+            }
+            _CP0_SET_COUNT(0);
         }
     }
 
@@ -65,14 +72,14 @@ void LCD_writeLetter (int x, int y, char letter) {
     }
 }
 
-void bar_init () {
+void bar_init (int x, int y, int length) {
     int j;
-    for (j=0;j<102;j++) {
-        LCD_drawPixel(14+j,62,WHITE);
-        LCD_drawPixel(14+j,68,WHITE);
+    for (j=0;j<length;j++) {
+        LCD_drawPixel(x+j,y,WHITE);
+        LCD_drawPixel(x+j,y+6,WHITE);
     }
     for (j=0;j<7;j++) {
-        LCD_drawPixel(14,62+j,WHITE);
-        LCD_drawPixel(115,62+j,WHITE);
+        LCD_drawPixel(x,y+j,WHITE);
+        LCD_drawPixel(x+length,y+j,WHITE);
     }
 }
