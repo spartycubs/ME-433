@@ -55,40 +55,5 @@ int main(void) {
         }
     }
 
-    //LCD_writeLetter(x_pos,y_pos,'h');
     return 0;
-}
-
-void LCD_writeLetter (int x, int y, char letter) {
-    int i, j;
-    for (i=0;i<5;i++) {
-        for (j=0;j<8;j++){
-            if ((ASCII[letter-0x20][i] >> j) & 0x01 == 1) {
-                LCD_drawPixel(x+i,y+j,WHITE);
-            }
-            else {
-                LCD_drawPixel(x+i,y+j,BLACK);
-            }
-        }
-    }
-}
-
-LCD_writeString (int x, int y, char* array) {
-    int i = 0;
-    while (array[i]) {
-        LCD_writeLetter(x + 5*i,y,array[i]);  // Write string to screen
-        i++;
-    }
-}
-
-void bar_init (int x, int y, int length) {
-    int j;
-    for (j=0;j<length;j++) {
-        LCD_drawPixel(x+j,y,WHITE);
-        LCD_drawPixel(x+j,y+6,WHITE);
-    }
-    for (j=0;j<7;j++) {
-        LCD_drawPixel(x,y+j,WHITE);
-        LCD_drawPixel(x+length,y+j,WHITE);
-    }
 }
