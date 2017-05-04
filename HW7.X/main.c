@@ -67,7 +67,7 @@ void drawBarChar(unsigned short xpos, unsigned short ypos, unsigned short color,
     for (i=0; i<=4; i++) {
         for (j=0; j<=7; j++) {
             if (xsign){
-                if (xarray[i]>> j & 1 == 1) {
+                if (xarray[i]>> j & 0x01 == 1) {
                     LCD_drawPixel(xpos+i, ypos+j, color);
                 }
                 else {
@@ -75,7 +75,7 @@ void drawBarChar(unsigned short xpos, unsigned short ypos, unsigned short color,
                 }
             }
             else{
-                if (yarray[i]>> j & 1 == 1) {
+                if (yarray[i]>> j & 0x01 == 1) {
                     LCD_drawPixel(xpos+i, ypos+j, color);
                 }
                 else {
