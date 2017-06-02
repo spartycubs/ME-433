@@ -5,31 +5,6 @@
 #include "i2c_setup.h"
 #include <xc.h>
 
-#define SLAVE_ADDRESS 0x20
-
-void i2c_master_write(char reg_address, char byte) {
-    i2c_master_start();                       // make the start bit
-    i2c_master_send(SLAVE_ADDRESS << 1 | 0);  // write the address, shifted left by 1
-                                              //    or'd with a 0 because we're writing
-    i2c_master_send(reg_address);             // the register to write to
-    i2c_master_send(byte);                    // the value to put in the register
-    i2c_master_stop();                        // make the stop bit
-}
-
-char i2c_master_read(char reg_address) {
-    i2c_master_start();                       // make the start bit
-    i2c_master_send(SLAVE_ADDRESS << 1 | 0);  // write the address, shifted left by 1
-                                              //    or'd with a 0 because we're writing
-    i2c_master_send(reg_address);             // the register to read from
-    i2c_master_restart();                     // make the restart bit
-    i2c_master_send(SLAVE_ADDRESS << 1 | 1);  // write the address, shifted left by 1
-                                              //    or'd with a 1 because we're reading
-    unsigned char r = i2c_master_recv();      // save the value returned
-    i2c_master_ack(1);                        // make the ack so the slave knows we received
-    i2c_master_stop();                        // make the stop bit
-    return r;
-}
-
 void i2c_master_setup(void) {
     I2C2BRG = 233;            // I2CBRG = [[1/(2*100000) - 104*10^-9]*48000000] - 2 
     I2C2CONbits.ON = 1;       // turn on the I2C1 module

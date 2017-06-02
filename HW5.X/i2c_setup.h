@@ -12,5 +12,18 @@ unsigned char i2c_master_recv(void);      // receive a byte of data
 void i2c_master_ack(int val);             // send an ACK (0) or NACK (1)
 void i2c_master_stop(void);               // send a stop
 
+#define IODIR 0x0
+#define GPPU 0x06
+#define GPIO 0x09
+#define OLAT 0x0A
+#define G0 1<<0
+#define G1 1<<1
+#define G2 1<<2
+#define G3 1<<3
+#define G4 1<<4
+#define G5 1<<5
+#define G6 1<<6
+#define G7 1<<7  //Define register and pin addresses
+
 #endif	/* I2C_SETUP_H */
 
