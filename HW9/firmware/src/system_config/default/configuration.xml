@@ -206,7 +206,7 @@
       <Template>
         <Name>system_init.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>5909B3C0F24DA962043939FA2B070662</Checksum>
+        <Checksum>B1D031DDF81266F154A2491F93CC9B26</Checksum>
       </Template>
       <Template>
         <Name>main.c</Name>

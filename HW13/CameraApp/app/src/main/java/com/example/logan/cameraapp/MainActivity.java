@@ -115,7 +115,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             // update the row
             bmp.setPixels(pixels, 0, bmp.getWidth(), 0, startY, bmp.getWidth(), 1);
         }
-        
+
         // draw a circle at some position
         int pos = 50;
         canvas.drawCircle(pos, 240, 5, paint1); // x position, y position, diameter, color

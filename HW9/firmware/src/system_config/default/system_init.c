@@ -75,7 +75,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #pragma config OSCIOFNC =   OFF
 #pragma config FPBDIV =     DIV_1
 #pragma config FCKSM =      CSDCMD
-#pragma config WDTPS =      PS1048576
+#pragma config WDTPS =      PS1
 #pragma config FWDTEN =     OFF
 #pragma config WINDIS =     OFF
 #pragma config FWDTWINSZ =  WINSZ_25

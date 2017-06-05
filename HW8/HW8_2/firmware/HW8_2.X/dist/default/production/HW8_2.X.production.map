@@ -173,9 +173,9 @@ section                    address  length [bytes]      (dec)  Description
 .text.SYS_CLK_Initializ 0x9d0030ac           0x60          96   
 .text.LCD_writeString   0x9d00310c           0x60          96   
 .text.sitofp            0x9d00316c           0x60          96   
-.text.SYS_DEVCON_System 0x9d0031cc           0x58          88   
-.text.SYS_DEVCON_Perfor 0x9d003224           0x58          88   
-.text.LCD_data          0x9d00327c           0x58          88   
+.text.LCD_data          0x9d0031cc           0x58          88   
+.text.SYS_DEVCON_System 0x9d003224           0x58          88   
+.text.SYS_DEVCON_Perfor 0x9d00327c           0x58          88   
 .text.main_entry        0x9d0032d4           0x54          84   
 .text.LCD_command       0x9d003328           0x50          80   
 .text.LCD_clearScreen   0x9d003378           0x50          80   
@@ -405,6 +405,18 @@ Discarded input sections
  .data          0x00000000        0x0 build/default/production/_ext/1360937237/main.o
  .bss           0x00000000        0x0 build/default/production/_ext/1360937237/main.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/1360937237/main.o
+ .text          0x00000000        0x0 build/default/production/_ext/1360937237/ILI9163C.o
+ .data          0x00000000        0x0 build/default/production/_ext/1360937237/ILI9163C.o
+ .bss           0x00000000        0x0 build/default/production/_ext/1360937237/ILI9163C.o
+ .reginfo       0x00000000       0x18 build/default/production/_ext/1360937237/ILI9163C.o
+ .text.bar_init
+                0x00000000       0xf8 build/default/production/_ext/1360937237/ILI9163C.o
+ .text          0x00000000        0x0 build/default/production/_ext/1360937237/i2c_setup.o
+ .data          0x00000000        0x0 build/default/production/_ext/1360937237/i2c_setup.o
+ .bss           0x00000000        0x0 build/default/production/_ext/1360937237/i2c_setup.o
+ .reginfo       0x00000000       0x18 build/default/production/_ext/1360937237/i2c_setup.o
+ .text.i2c_master_read
+                0x00000000       0x64 build/default/production/_ext/1360937237/i2c_setup.o
  .text          0x00000000        0x0 build/default/production/_ext/1604427054/sys_devcon.o
  .data          0x00000000        0x0 build/default/production/_ext/1604427054/sys_devcon.o
  .bss           0x00000000        0x0 build/default/production/_ext/1604427054/sys_devcon.o
@@ -429,18 +441,6 @@ Discarded input sections
  .data          0x00000000        0x0 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .bss           0x00000000        0x0 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
- .text          0x00000000        0x0 build/default/production/_ext/1360937237/ILI9163C.o
- .data          0x00000000        0x0 build/default/production/_ext/1360937237/ILI9163C.o
- .bss           0x00000000        0x0 build/default/production/_ext/1360937237/ILI9163C.o
- .reginfo       0x00000000       0x18 build/default/production/_ext/1360937237/ILI9163C.o
- .text.bar_init
-                0x00000000       0xf8 build/default/production/_ext/1360937237/ILI9163C.o
- .text          0x00000000        0x0 build/default/production/_ext/1360937237/i2c_setup.o
- .data          0x00000000        0x0 build/default/production/_ext/1360937237/i2c_setup.o
- .bss           0x00000000        0x0 build/default/production/_ext/1360937237/i2c_setup.o
- .reginfo       0x00000000       0x18 build/default/production/_ext/1360937237/i2c_setup.o
- .text.i2c_master_read
-                0x00000000       0x64 build/default/production/_ext/1360937237/i2c_setup.o
  .text          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MX250F128B\default_isr_vectors.o
  .data          0x00000000        0x0 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MX250F128B\default_isr_vectors.o
  .bss           0x00000000        0x0 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/./proc/32MX250F128B\default_isr_vectors.o
@@ -739,10 +739,10 @@ LOAD build/default/production/_ext/1688732426/system_exceptions.o
 LOAD build/default/production/_ext/1688732426/system_tasks.o
 LOAD build/default/production/_ext/1360937237/app.o
 LOAD build/default/production/_ext/1360937237/main.o
-LOAD build/default/production/_ext/1604427054/sys_devcon.o
-LOAD build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
 LOAD build/default/production/_ext/1360937237/ILI9163C.o
 LOAD build/default/production/_ext/1360937237/i2c_setup.o
+LOAD build/default/production/_ext/1604427054/sys_devcon.o
+LOAD build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
 LOAD ..\..\..\..\..\..\..\..\..\microchip\harmony\v1_10\bin\framework\peripheral\PIC32MX250F128B_peripherals.a
                 0x00000001                __MPLAB_BUILD = 0x1
                 0x00000000                _min_heap_size = 0x0
@@ -1345,10 +1345,10 @@ END GROUP
  .mdebug.abi32  0xa0000020        0x0 build/default/production/_ext/1688732426/system_tasks.o
  .mdebug.abi32  0xa0000020        0x0 build/default/production/_ext/1360937237/app.o
  .mdebug.abi32  0xa0000020        0x0 build/default/production/_ext/1360937237/main.o
- .mdebug.abi32  0xa0000020        0x0 build/default/production/_ext/1604427054/sys_devcon.o
- .mdebug.abi32  0xa0000020        0x0 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .mdebug.abi32  0xa0000020        0x0 build/default/production/_ext/1360937237/ILI9163C.o
  .mdebug.abi32  0xa0000020        0x0 build/default/production/_ext/1360937237/i2c_setup.o
+ .mdebug.abi32  0xa0000020        0x0 build/default/production/_ext/1604427054/sys_devcon.o
+ .mdebug.abi32  0xa0000020        0x0 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .mdebug.abi32  0xa0000020        0x0 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
  .mdebug.abi32  0xa0000020        0x0 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-reset.o)
  .mdebug.abi32  0xa0000020        0x0 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-bootstrap.o)
@@ -1415,10 +1415,10 @@ END GROUP
  .comment       0x00000000       0x3d build/default/production/_ext/1688732426/system_tasks.o
  .comment       0x00000000       0x3d build/default/production/_ext/1360937237/app.o
  .comment       0x00000000       0x3d build/default/production/_ext/1360937237/main.o
- .comment       0x00000000       0x3d build/default/production/_ext/1604427054/sys_devcon.o
- .comment       0x00000000       0x3d build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .comment       0x00000000       0x3d build/default/production/_ext/1360937237/ILI9163C.o
  .comment       0x00000000       0x3d build/default/production/_ext/1360937237/i2c_setup.o
+ .comment       0x00000000       0x3d build/default/production/_ext/1604427054/sys_devcon.o
+ .comment       0x00000000       0x3d build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .comment       0x00000000       0x3d c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
  .comment       0x00000000       0x3d c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-reset.o)
  .comment       0x00000000       0x3d c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-bootstrap.o)
@@ -1467,13 +1467,13 @@ END GROUP
  .debug_aranges
                 0x000001f8       0x20 build/default/production/_ext/1360937237/main.o
  .debug_aranges
-                0x00000218       0x78 build/default/production/_ext/1604427054/sys_devcon.o
+                0x00000218       0x88 build/default/production/_ext/1360937237/ILI9163C.o
  .debug_aranges
-                0x00000290       0x20 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
+                0x000002a0       0x68 build/default/production/_ext/1360937237/i2c_setup.o
  .debug_aranges
-                0x000002b0       0x88 build/default/production/_ext/1360937237/ILI9163C.o
+                0x00000308       0x78 build/default/production/_ext/1604427054/sys_devcon.o
  .debug_aranges
-                0x00000338       0x68 build/default/production/_ext/1360937237/i2c_setup.o
+                0x00000380       0x20 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .debug_aranges
                 0x000003a0       0x20 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
  .debug_aranges
@@ -1512,10 +1512,10 @@ END GROUP
  .debug_info    0x00006559      0x684 build/default/production/_ext/1688732426/system_tasks.o
  .debug_info    0x00006bdd      0xdba build/default/production/_ext/1360937237/app.o
  .debug_info    0x00007997      0x1a7 build/default/production/_ext/1360937237/main.o
- .debug_info    0x00007b3e      0xf51 build/default/production/_ext/1604427054/sys_devcon.o
- .debug_info    0x00008a8f      0x761 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
- .debug_info    0x000091f0     0x15d3 build/default/production/_ext/1360937237/ILI9163C.o
- .debug_info    0x0000a7c3      0x7fb build/default/production/_ext/1360937237/i2c_setup.o
+ .debug_info    0x00007b3e     0x15d3 build/default/production/_ext/1360937237/ILI9163C.o
+ .debug_info    0x00009111      0x7fb build/default/production/_ext/1360937237/i2c_setup.o
+ .debug_info    0x0000990c      0xf51 build/default/production/_ext/1604427054/sys_devcon.o
+ .debug_info    0x0000a85d      0x761 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .debug_info    0x0000afbe       0xf5 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
  .debug_info    0x0000b0b3       0xce c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-reset.o)
  .debug_info    0x0000b181       0xd6 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-bootstrap.o)
@@ -1539,10 +1539,10 @@ END GROUP
  .debug_abbrev  0x00000732       0xc3 build/default/production/_ext/1688732426/system_tasks.o
  .debug_abbrev  0x000007f5      0x21e build/default/production/_ext/1360937237/app.o
  .debug_abbrev  0x00000a13       0x93 build/default/production/_ext/1360937237/main.o
- .debug_abbrev  0x00000aa6      0x285 build/default/production/_ext/1604427054/sys_devcon.o
- .debug_abbrev  0x00000d2b      0x162 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
- .debug_abbrev  0x00000e8d      0x187 build/default/production/_ext/1360937237/ILI9163C.o
- .debug_abbrev  0x00001014      0x161 build/default/production/_ext/1360937237/i2c_setup.o
+ .debug_abbrev  0x00000aa6      0x187 build/default/production/_ext/1360937237/ILI9163C.o
+ .debug_abbrev  0x00000c2d      0x161 build/default/production/_ext/1360937237/i2c_setup.o
+ .debug_abbrev  0x00000d8e      0x285 build/default/production/_ext/1604427054/sys_devcon.o
+ .debug_abbrev  0x00001013      0x162 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .debug_abbrev  0x00001175       0x28 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
  .debug_abbrev  0x0000119d       0x28 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-reset.o)
  .debug_abbrev  0x000011c5       0x28 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-bootstrap.o)
@@ -1566,10 +1566,10 @@ END GROUP
  .debug_line    0x0000109b      0x222 build/default/production/_ext/1688732426/system_tasks.o
  .debug_line    0x000012bd      0x187 build/default/production/_ext/1360937237/app.o
  .debug_line    0x00001444       0xba build/default/production/_ext/1360937237/main.o
- .debug_line    0x000014fe      0x59b build/default/production/_ext/1604427054/sys_devcon.o
- .debug_line    0x00001a99      0x378 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
- .debug_line    0x00001e11      0x2b8 build/default/production/_ext/1360937237/ILI9163C.o
- .debug_line    0x000020c9      0x19a build/default/production/_ext/1360937237/i2c_setup.o
+ .debug_line    0x000014fe      0x2b8 build/default/production/_ext/1360937237/ILI9163C.o
+ .debug_line    0x000017b6      0x19a build/default/production/_ext/1360937237/i2c_setup.o
+ .debug_line    0x00001950      0x59b build/default/production/_ext/1604427054/sys_devcon.o
+ .debug_line    0x00001eeb      0x378 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .debug_line    0x00002263       0xa7 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
  .debug_line    0x0000230a       0x94 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-reset.o)
  .debug_line    0x0000239e       0x98 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-bootstrap.o)
@@ -1595,10 +1595,10 @@ END GROUP
  .debug_frame   0x000002e0       0x28 build/default/production/_ext/1688732426/system_tasks.o
  .debug_frame   0x00000308       0x48 build/default/production/_ext/1360937237/app.o
  .debug_frame   0x00000350       0x28 build/default/production/_ext/1360937237/main.o
- .debug_frame   0x00000378       0xe8 build/default/production/_ext/1604427054/sys_devcon.o
- .debug_frame   0x00000460       0x28 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
- .debug_frame   0x00000488      0x1a0 build/default/production/_ext/1360937237/ILI9163C.o
- .debug_frame   0x00000628       0xd4 build/default/production/_ext/1360937237/i2c_setup.o
+ .debug_frame   0x00000378      0x1a0 build/default/production/_ext/1360937237/ILI9163C.o
+ .debug_frame   0x00000518       0xd4 build/default/production/_ext/1360937237/i2c_setup.o
+ .debug_frame   0x000005ec       0xe8 build/default/production/_ext/1604427054/sys_devcon.o
+ .debug_frame   0x000006d4       0x28 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .debug_frame   0x000006fc       0x2c c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
  .debug_frame   0x00000728       0x20 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-reset.o)
  .debug_frame   0x00000748       0x20 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-bootstrap.o)
@@ -1622,10 +1622,10 @@ END GROUP
  .debug_str     0x000000e9        0x0 build/default/production/_ext/1688732426/system_tasks.o
  .debug_str     0x000000e9        0xa build/default/production/_ext/1360937237/app.o
  .debug_str     0x000000f3        0x0 build/default/production/_ext/1360937237/main.o
- .debug_str     0x000000f3       0x16 build/default/production/_ext/1604427054/sys_devcon.o
- .debug_str     0x00000109        0x6 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
- .debug_str     0x0000010f        0x6 build/default/production/_ext/1360937237/ILI9163C.o
- .debug_str     0x00000115        0xc build/default/production/_ext/1360937237/i2c_setup.o
+ .debug_str     0x000000f3        0x6 build/default/production/_ext/1360937237/ILI9163C.o
+ .debug_str     0x000000f9        0xc build/default/production/_ext/1360937237/i2c_setup.o
+ .debug_str     0x00000105       0x16 build/default/production/_ext/1604427054/sys_devcon.o
+ .debug_str     0x0000011b        0x6 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .debug_str     0x00000121        0x0 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
  .debug_str     0x00000121        0x0 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-reset.o)
  .debug_str     0x00000121        0x0 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-bootstrap.o)
@@ -1648,10 +1648,10 @@ END GROUP
  .debug_loc     0x00000049      0xe83 build/default/production/_ext/822048611/sys_ports_static.o
  .debug_loc     0x00000ecc       0x21 build/default/production/_ext/1688732426/system_init.o
  .debug_loc     0x00000eed       0xdc build/default/production/_ext/1360937237/app.o
- .debug_loc     0x00000fc9       0xf0 build/default/production/_ext/1604427054/sys_devcon.o
- .debug_loc     0x000010b9       0x91 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
- .debug_loc     0x0000114a      0x9a3 build/default/production/_ext/1360937237/ILI9163C.o
- .debug_loc     0x00001aed      0x15b build/default/production/_ext/1360937237/i2c_setup.o
+ .debug_loc     0x00000fc9      0x9a3 build/default/production/_ext/1360937237/ILI9163C.o
+ .debug_loc     0x0000196c      0x15b build/default/production/_ext/1360937237/i2c_setup.o
+ .debug_loc     0x00001ac7       0xf0 build/default/production/_ext/1604427054/sys_devcon.o
+ .debug_loc     0x00001bb7       0x91 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .debug_loc     0x00001c48       0x2c c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
  .debug_loc     0x00001c74      0xa6a c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3\libgcc.a(_udivdi3.o)
  .debug_loc     0x000026de      0xa3d c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3\libgcc.a(_umoddi3.o)
@@ -1685,10 +1685,10 @@ END GROUP
  .debug_ranges  0x00000158       0x10 build/default/production/_ext/1688732426/system_tasks.o
  .debug_ranges  0x00000168       0x18 build/default/production/_ext/1360937237/app.o
  .debug_ranges  0x00000180       0x10 build/default/production/_ext/1360937237/main.o
- .debug_ranges  0x00000190       0x68 build/default/production/_ext/1604427054/sys_devcon.o
- .debug_ranges  0x000001f8       0x10 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
- .debug_ranges  0x00000208       0x78 build/default/production/_ext/1360937237/ILI9163C.o
- .debug_ranges  0x00000280       0x58 build/default/production/_ext/1360937237/i2c_setup.o
+ .debug_ranges  0x00000190       0x78 build/default/production/_ext/1360937237/ILI9163C.o
+ .debug_ranges  0x00000208       0x58 build/default/production/_ext/1360937237/i2c_setup.o
+ .debug_ranges  0x00000260       0x68 build/default/production/_ext/1604427054/sys_devcon.o
+ .debug_ranges  0x000002c8       0x10 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .debug_ranges  0x000002d8       0x10 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
  .debug_ranges  0x000002e8       0x10 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-reset.o)
  .debug_ranges  0x000002f8       0x10 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-bootstrap.o)
@@ -1722,13 +1722,13 @@ END GROUP
  .gnu.attributes
                 0x00000070       0x10 build/default/production/_ext/1360937237/main.o
  .gnu.attributes
-                0x00000080       0x10 build/default/production/_ext/1604427054/sys_devcon.o
+                0x00000080       0x10 build/default/production/_ext/1360937237/ILI9163C.o
  .gnu.attributes
-                0x00000090       0x10 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
+                0x00000090       0x10 build/default/production/_ext/1360937237/i2c_setup.o
  .gnu.attributes
-                0x000000a0       0x10 build/default/production/_ext/1360937237/ILI9163C.o
+                0x000000a0       0x10 build/default/production/_ext/1604427054/sys_devcon.o
  .gnu.attributes
-                0x000000b0       0x10 build/default/production/_ext/1360937237/i2c_setup.o
+                0x000000b0       0x10 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
  .gnu.attributes
                 0x000000c0       0x10 c:/program files (x86)/microchip/xc32/v1.43/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
  .gnu.attributes
@@ -1933,22 +1933,22 @@ LOAD data_init
                 0x9d00316c                litofp
                 0x9d00316c                sitofp
 
+.text.LCD_data  0x9d0031cc       0x58
+ .text.LCD_data
+                0x9d0031cc       0x58 build/default/production/_ext/1360937237/ILI9163C.o
+                0x9d0031cc                LCD_data
+
 .text.SYS_DEVCON_SystemUnlock
-                0x9d0031cc       0x58
+                0x9d003224       0x58
  .text.SYS_DEVCON_SystemUnlock
-                0x9d0031cc       0x58 build/default/production/_ext/1604427054/sys_devcon.o
-                0x9d0031cc                SYS_DEVCON_SystemUnlock
+                0x9d003224       0x58 build/default/production/_ext/1604427054/sys_devcon.o
+                0x9d003224                SYS_DEVCON_SystemUnlock
 
 .text.SYS_DEVCON_PerformanceConfig
-                0x9d003224       0x58
+                0x9d00327c       0x58
  .text.SYS_DEVCON_PerformanceConfig
-                0x9d003224       0x58 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
-                0x9d003224                SYS_DEVCON_PerformanceConfig
-
-.text.LCD_data  0x9d00327c       0x58
- .text.LCD_data
-                0x9d00327c       0x58 build/default/production/_ext/1360937237/ILI9163C.o
-                0x9d00327c                LCD_data
+                0x9d00327c       0x58 build/default/production/_ext/1604427054/sys_devcon_pic32mx.o
+                0x9d00327c                SYS_DEVCON_PerformanceConfig
 
 .text.main_entry
                 0x9d0032d4       0x54

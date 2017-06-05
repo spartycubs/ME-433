@@ -49,6 +49,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 
 #include "app.h"
+#include "i2c_setup.h"
+#include "ILI9163C.h"
 #include <stdio.h>
 #include <xc.h>
 
@@ -62,6 +64,9 @@ uint8_t APP_MAKE_BUFFER_DMA_READY dataOut[APP_READ_BUFFER_SIZE];
 uint8_t APP_MAKE_BUFFER_DMA_READY readBuffer[APP_READ_BUFFER_SIZE];
 int len, i = 0;
 int startTime = 0;
+char message[100], data[14];
+int length = 14;
+signed short signed_data[7];
 
 // *****************************************************************************
 /* Application Data
@@ -332,6 +337,20 @@ void APP_Initialize(void) {
     appData.readBuffer = &readBuffer[0];
 
     startTime = _CP0_GET_COUNT();
+    
+    TRISAbits.TRISA4 = 0;
+    TRISBbits.TRISB4 = 1;
+    ANSELBbits.ANSB2 = 0;  // Turn off analog for B2
+    ANSELBbits.ANSB3 = 0;  // Turn off analog for B3
+    
+    SPI1_init();
+    LCD_init();
+    i2c_master_setup();
+    i2c_master_write(CTRL1_XL,0x82);
+    i2c_master_write(CTRL2_G,0x88);
+    i2c_master_write(CTRL3_C,0x04);
+    
+    startTime = _CP0_GET_COUNT();
 }
 
 /******************************************************************************
@@ -360,7 +379,7 @@ void APP_Tasks(void) {
                 /* The Device Layer is not ready to be opened. We should try
                  * again later. */
             }
-
+            LCD_clearScreen(BLACK);
             break;
 
         case APP_STATE_WAIT_FOR_CONFIGURATION:
