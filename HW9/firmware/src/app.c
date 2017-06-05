@@ -427,7 +427,7 @@ void APP_Tasks(void) {
             /* Check if a character was received or a switch was pressed.
              * The isReadComplete flag gets updated in the CDC event handler. */
 
-            if (appData.isReadComplete || _CP0_GET_COUNT() - startTime > (48000000 / 2 / 5)) {
+            if (appData.isReadComplete && readBuffer[0]==0x72) {
                 appData.state = APP_STATE_SCHEDULE_WRITE;
             }
 
@@ -445,19 +445,24 @@ void APP_Tasks(void) {
             appData.writeTransferHandle = USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID;
             appData.isWriteComplete = false;
             appData.state = APP_STATE_WAIT_FOR_WRITE_COMPLETE;
-
-            len = sprintf(dataOut, "%d\r\n", i);
-            i++;
-            if (appData.isReadComplete) {
-                USB_DEVICE_CDC_Write(USB_DEVICE_CDC_INDEX_0,
-                        &appData.writeTransferHandle,
-                        appData.readBuffer, 1,
-                        USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
-            } else {
-                USB_DEVICE_CDC_Write(USB_DEVICE_CDC_INDEX_0,
-                        &appData.writeTransferHandle, dataOut, len,
-                        USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
-                startTime = _CP0_GET_COUNT();
+            i = 0;
+            _CP0_SET_COUNT(0);
+            for (i = 0; i<100; i++) {
+                i2c_read_multiple(SLAVE_ADDRESS, OUT_TEMP_L, data, length);
+                int j=0, k=0;
+                while (j<=length-1){
+                    signed_data[k]= (data[j+1] << 8) | data[j];
+                    j=j+2;
+                    k++;
+                }
+                len = sprintf(dataOut, "%d %d %d %d %d %d %d\r\n", i, signed_data[4], signed_data[5], signed_data[6], signed_data[1], signed_data[2], signed_data[3]);
+                if (appData.isReadComplete) {
+                    USB_DEVICE_CDC_Write(USB_DEVICE_CDC_INDEX_0,
+                            &appData.writeTransferHandle, dataOut, len,
+                            USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
+                }
+                while (_CP0_GET_COUNT()<24000000/100){;}
+                _CP0_SET_COUNT(0);
             }
             break;
 
