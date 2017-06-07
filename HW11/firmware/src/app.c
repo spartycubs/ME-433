@@ -347,16 +347,7 @@ void APP_Tasks(void) {
                 gy = (int8_t) 0;
                 inc++;
             }
-            i2c_read_multiple(SLAVE_ADDRESS, OUT_TEMP_L, data, length);
-            int j=0, k=0;
-            while (j<=length-1){
-                signed_data[k]= (data[j+1] << 8) | data[j];
-                j=j+2;
-                k++;
-            }
-            LCD_clearScreen(BLACK);
-            sprintf(message,"Ax: %6d  Ay: %6d",signed_data[4],signed_data[5]);
-            LCD_writeString(7,118,message);
+
             appData.mouseButton[0] = MOUSE_BUTTON_STATE_RELEASED;
             appData.mouseButton[1] = MOUSE_BUTTON_STATE_RELEASED;
             appData.xCoordinate = gx;
