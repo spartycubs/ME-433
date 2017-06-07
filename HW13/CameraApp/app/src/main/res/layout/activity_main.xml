@@ -31,6 +31,21 @@
             android:layout_width="640px"
             android:layout_height="480px" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adjust Threshold"
+            android:id="@+id/location"/>
+        <SeekBar
+            android:id="@+id/seek1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:progress="20"
+            android:secondaryProgress="20"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

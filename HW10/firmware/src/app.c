@@ -335,8 +335,6 @@ void APP_Initialize(void) {
 
     /* Set up the read buffer */
     appData.readBuffer = &readBuffer[0];
-
-    startTime = _CP0_GET_COUNT();
     
     TRISAbits.TRISA4 = 0;
     TRISBbits.TRISB4 = 1;
@@ -485,7 +483,7 @@ void APP_Tasks(void) {
                 fir = (float) f1*buff2[0]+f2*buff2[1]+f3*buff2[2]+f4*buff2[3]+f5*buff2[4]+f6*buff2[5];
                 
                 
-                len = sprintf(dataOut, "%2d %6d %9.2f %9.2f %9.2f\r\n", i, signed_data[6], maf_average, iir, fir);
+                len = sprintf(dataOut, "%2d, %6d, %9.2f, %9.2f, %9.2f\r\n", i, signed_data[6], maf_average, iir, fir);
                 if (appData.isReadComplete) {
                     USB_DEVICE_CDC_Write(USB_DEVICE_CDC_INDEX_0,
                             &appData.writeTransferHandle, dataOut, len,

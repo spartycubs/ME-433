@@ -1,0 +1,33 @@
+function [array] = plotimufilters()
+colors = 'kmbgrcyg';
+
+port = 'COM3';                          % Set up serial port address
+if ~isempty(instrfind)                  % If PIC is not connected
+    fclose(instrfind);                  % Close serial
+    delete(instrfind);                  % ...
+end
+
+mySerial = serial(port, 'BaudRate', 230400, 'FlowControl', 'hardware','Timeout',30); %Connect to PIC
+fprintf('Opening port %s...\n', port);    % Print to screen
+fopen(mySerial);
+
+temp=zeros(5,1);
+array = zeros(5,100); %Preallocate array for plotting
+array(:,:) = NaN; 
+for i=1:100
+    str = fgetl(mySerial);
+    temp = textscan(str, '%f', 'Delimiter',','); 
+    temp = temp{1};  %read data into temporary variable
+    array(:,i)=temp; %
+end   
+figure;
+for filter = 2:5
+    plot (6:100, array(filter,6:100),colors(filter))
+    hold on;
+end
+legend('raw', 'maf', 'iir', 'fir');
+
+fclose(mySerial);
+fprintf('Port %s closed.\n', port);
+
+end

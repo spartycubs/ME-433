@@ -1,5 +1,4 @@
 package com.example.logan.cameraapp;
-
 // libraries
 
 import android.Manifest;
@@ -36,8 +35,11 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
     private Canvas canvas = new Canvas(bmp);
     private Paint paint1 = new Paint();
     private TextView mTextView;
+    private SeekBar myControl;
+    private TextView text2;
 
     static long prevtime = 0; // for FPS calculation
+    static int threshold=0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // keeps the screen from turning off
 
         mTextView = (TextView) findViewById(R.id.cameraStatus);
+        text2= (TextView) findViewById(R.id.location);
 
         // see if the app has permission to use the camera
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
@@ -58,14 +61,36 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             // set the paintbrush for writing text on the image
             paint1.setColor(0xffff0000); // red
             paint1.setTextSize(24);
-
+            myControl = (SeekBar) findViewById(R.id.seek1);
+            setMyControlListener();
             mTextView.setText("started camera");
         } else {
             mTextView.setText("no camera permissions");
         }
 
     }
+    private void setMyControlListener() {
+        myControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
+            int progressChanged = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressChanged = progress;
+                threshold=progressChanged;
+                text2.setText("The red/green threshold is: "+progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
         mCamera = Camera.open();
         Camera.Parameters parameters = mCamera.getParameters();
@@ -92,30 +117,37 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
         mCamera.release();
         return true;
     }
-
-    // the important function
     public void onSurfaceTextureUpdated(SurfaceTexture surface) {
         // every time there is a new Camera preview frame
         mTextureView.getBitmap(bmp);
 
         final Canvas c = mSurfaceHolder.lockCanvas();
         if (c != null) {
-            int thresh = 0; // comparison value
+            int thresh = threshold; // comparison value
             int[] pixels = new int[bmp.getWidth()]; // pixels[] is the RGBA data
-            int startY = 200; // which row in the bitmap to analyze to read
-            bmp.getPixels(pixels, 0, bmp.getWidth(), 0, startY, bmp.getWidth(), 1);
+            int startY = 0; // which row in the bitmap to analyze to read
+            int index = 0;
+            for (int j = 0; j < bmp.getHeight(); j++) {
+                if (index == 2) {
+                    bmp.getPixels(pixels, 0, bmp.getWidth(), 0, startY, bmp.getWidth(), 1);
 
-            // in the row, see if there is more green than red
-            for (int i = 0; i < bmp.getWidth(); i++) {
-                if ((green(pixels[i]) - red(pixels[i])) > thresh) {
-                    pixels[i] = rgb(0, 255, 0); // over write the pixel with pure green
+                    // in the row, see if there is more green than red
+                    for (int i = 0; i < bmp.getWidth(); i++) {
+                        if ((green(pixels[i]) - red(pixels[i])) > thresh) {
+                            pixels[i] = rgb(0, 255, 0); // over write the pixel with pure green
+                        }
+                    }
+                    // update the row
+                    bmp.setPixels(pixels, 0, bmp.getWidth(), 0, startY, bmp.getWidth(), 1);
+                    startY++;
+                    index = 0;
+                }
+                else {
+                    startY++;
+                    index++;
                 }
             }
-
-            // update the row
-            bmp.setPixels(pixels, 0, bmp.getWidth(), 0, startY, bmp.getWidth(), 1);
         }
-
         // draw a circle at some position
         int pos = 50;
         canvas.drawCircle(pos, 240, 5, paint1); // x position, y position, diameter, color
