@@ -80,8 +80,9 @@ APP_DATA appData;
 MOUSE_REPORT mouseReport APP_MAKE_BUFFER_DMA_READY;
 MOUSE_REPORT mouseReportPrevious APP_MAKE_BUFFER_DMA_READY;
 int len, i = 0;
-static int8_t inc = 1;
-char message[100], data[14];
+int startTime = 0;
+uint8_t inc = 4;
+char data[14];
 int length = 14;
 signed short signed_data[7];
 signed char gx=0,gy=0;
@@ -271,8 +272,8 @@ void APP_Initialize(void) {
     ANSELBbits.ANSB2 = 0;  // Turn off analog for B2
     ANSELBbits.ANSB3 = 0;  // Turn off analog for B3
     
-    SPI1_init();
-    LCD_init();
+    //SPI1_init();
+    //LCD_init();
     i2c_master_setup();
     i2c_master_write(CTRL1_XL,0x82);
     i2c_master_write(CTRL2_G,0x88);
@@ -335,9 +336,9 @@ void APP_Tasks(void) {
                 }
                 
                 temp = signed_data[4];
-                tempx = (float) temp/2.0;
+                tempx = (float) temp/20.0;
                 temp = signed_data[5];
-                tempy = (float) temp/2.0;
+                tempy = (float) temp/20.0;
                 gy = (int8_t) tempy;
                 gx = (int8_t) tempx;
                 inc = 1;
