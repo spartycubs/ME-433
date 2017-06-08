@@ -57,7 +57,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: Global Data Definitions
 // *****************************************************************************
 // *****************************************************************************
-
+#define MAX_DUTY 1200
 uint8_t APP_MAKE_BUFFER_DMA_READY dataOut[APP_READ_BUFFER_SIZE];
 uint8_t APP_MAKE_BUFFER_DMA_READY readBuffer[APP_READ_BUFFER_SIZE];
 int len, i = 0;
@@ -66,6 +66,9 @@ char rx[64]; // the raw data
 int rxPos = 0; // how much data has been stored
 int gotRx = 0; // the flag
 int rxVal = 0; // a place to store the int that was received
+int error = 0, right = 600, left = 600;
+float kp = 0.1;
+
 
 // *****************************************************************************
 /* Application Data
@@ -422,7 +425,7 @@ void APP_Tasks(void) {
 
         case APP_STATE_WAIT_FOR_READ_COMPLETE:
         case APP_STATE_CHECK_TIMER:
-            if (gotRx || _CP0_GET_COUNT() - startTime > (48000000 / 2 / 5)) {
+            if (gotRx) {
                 appData.state = APP_STATE_SCHEDULE_WRITE;
             }
             if (APP_StateReset()) {
@@ -432,7 +435,7 @@ void APP_Tasks(void) {
             /* Check if a character was received or a switch was pressed.
              * The isReadComplete flag gets updated in the CDC event handler. */
 
-            if (appData.isReadComplete || _CP0_GET_COUNT() - startTime > (48000000 / 2 / 5)) {
+            if (appData.isReadComplete) {
                 appData.state = APP_STATE_SCHEDULE_WRITE;
             }
 
@@ -441,16 +444,37 @@ void APP_Tasks(void) {
 
         case APP_STATE_SCHEDULE_WRITE:
             if (gotRx) {
-                len = sprintf(dataOut, "got: %d\r\n", rxVal);
+                error = rxVal - 240; // 240 means the dot is in the middle of the screen
+                if (error<0) { // slow down the left motor to steer to the left
+                    error  = -error;
+                    left = MAX_DUTY - kp*error;
+                    right = MAX_DUTY;
+                    if (left < 0){
+                        left = 0;
+                    }
+                }
+                else { // slow down the right motor to steer to the right
+                    right = MAX_DUTY - kp*error;
+                    left = MAX_DUTY;
+                    if (right<0) {
+                        right = 0;
+                    }
+                }
+                LATAbits.LATA1 = 1; // always go forward
+                LATBbits.LATB3 = 1;
+                OC1RS = left;
+                OC4RS = right;
+                len = sprintf(dataOut, "left: %d, right: %d, rxVal: %d\r\n", left, right, rxVal);
                 i++;
                 USB_DEVICE_CDC_Write(USB_DEVICE_CDC_INDEX_0,
                         &appData.writeTransferHandle,
                         dataOut, len,
                         USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
-                rxPos = 0;
                 gotRx = 0;
+                rxPos = 0;
             } else {
-                len = sprintf(dataOut, "%d\r\n", i);
+                len = 1;
+                dataOut[0]=0;
                 i++;
                 USB_DEVICE_CDC_Write(USB_DEVICE_CDC_INDEX_0,
                         &appData.writeTransferHandle, dataOut, len,
@@ -467,19 +491,6 @@ void APP_Tasks(void) {
             appData.isWriteComplete = false;
             appData.state = APP_STATE_WAIT_FOR_WRITE_COMPLETE;
 
-            len = sprintf(dataOut, "%d\r\n", i);
-            i++;
-            if (appData.isReadComplete) {
-                USB_DEVICE_CDC_Write(USB_DEVICE_CDC_INDEX_0,
-                        &appData.writeTransferHandle,
-                        appData.readBuffer, 1,
-                        USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
-            } else {
-                USB_DEVICE_CDC_Write(USB_DEVICE_CDC_INDEX_0,
-                        &appData.writeTransferHandle, dataOut, len,
-                        USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
-                startTime = _CP0_GET_COUNT();
-            }
             break;
 
         case APP_STATE_WAIT_FOR_WRITE_COMPLETE:
